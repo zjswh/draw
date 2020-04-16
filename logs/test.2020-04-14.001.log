@@ -1,0 +1,48 @@
+2020/04/13 22:16:11.378 [I] [asm_amd64.s:1357]  http server Running on http://127.0.0.1:9001
+2020/04/13 22:16:13.129 [E] [value.go:460]  api not found
+2020/04/13 22:16:13.130 [D] [server.go:2802]  |      127.0.0.1|[43m 404 [0m|      997.5µs| nomatch|[44m GET     [0m /  
+2020/04/13 22:16:13.575 [E] [value.go:460]  api not found
+2020/04/13 22:16:13.579 [D] [server.go:2802]  |      127.0.0.1|[43m 404 [0m|     3.5471ms| nomatch|[44m GET     [0m /favicon.ico
+2020/04/13 22:16:20.612 [D] [server.go:2802]  |      127.0.0.1|[42m 200 [0m|      495.2µs|   match|[44m GET     [0m /swagger/
+2020/04/13 22:16:20.650 [D] [server.go:2802]  |      127.0.0.1|[42m 200 [0m|      504.7µs|   match|[44m GET     [0m /swagger/swagger-ui.css
+2020/04/13 22:16:20.666 [D] [server.go:2802]  |      127.0.0.1|[42m 200 [0m|    13.4933ms|   match|[44m GET     [0m /swagger/swagger-ui-standalone-preset.js
+2020/04/13 22:16:20.667 [D] [server.go:2802]  |      127.0.0.1|[42m 200 [0m|    15.9995ms|   match|[44m GET     [0m /swagger/swagger-ui-bundle.js
+2020/04/13 22:16:21.274 [D] [server.go:2802]  |      127.0.0.1|[42m 200 [0m|      503.6µs|   match|[44m GET     [0m /swagger/swagger.json
+2020/04/13 22:17:53.893 [I] [asm_amd64.s:1357]  http server Running on http://127.0.0.1:9001
+2020/04/13 22:17:53.947 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|      382.7µs|   match|[44m GET     [0m /swagger/
+2020/04/13 22:17:53.981 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|     1.0022ms|   match|[44m GET     [0m /swagger/swagger-ui.css
+2020/04/13 22:17:53.987 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|     4.4989ms|   match|[44m GET     [0m /swagger/swagger-ui-bundle.js
+2020/04/13 22:17:53.995 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|      498.7µs|   match|[44m GET     [0m /swagger/swagger-ui-standalone-preset.js
+2020/04/13 22:17:54.546 [D] [server.go:2802]  |      127.0.0.1|[42m 200 [0m|      495.2µs|   match|[44m GET     [0m /swagger/swagger.json
+2020/04/13 22:20:08.523 [I] [asm_amd64.s:1357]  http server Running on http://127.0.0.1:9001
+2020/04/13 22:31:29.619 [I] [asm_amd64.s:1357]  http server Running on http://127.0.0.1:9001
+2020/04/13 22:31:36.290 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|      499.9µs|   match|[44m GET     [0m /swagger/
+2020/04/13 22:31:36.328 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|      490.8µs|   match|[44m GET     [0m /swagger/swagger-ui.css
+2020/04/13 22:31:36.352 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|     6.4978ms|   match|[44m GET     [0m /swagger/swagger-ui-bundle.js
+2020/04/13 22:31:36.353 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|     7.4979ms|   match|[44m GET     [0m /swagger/swagger-ui-standalone-preset.js
+2020/04/13 22:31:36.540 [D] [server.go:2802]  |      127.0.0.1|[42m 200 [0m|      499.6µs|   match|[44m GET     [0m /swagger/swagger.json
+2020/04/13 22:31:38.028 [I] [asm_amd64.s:1357]  http server Running on http://127.0.0.1:9001
+2020/04/13 22:40:54.220 [I] [asm_amd64.s:1357]  http server Running on http://127.0.0.1:9001
+2020/04/13 22:42:01.531 [I] [asm_amd64.s:1357]  http server Running on http://127.0.0.1:9001
+2020/04/13 22:42:12.302 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|      503.8µs|   match|[44m GET     [0m /swagger/
+2020/04/13 22:42:12.345 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|      499.6µs|   match|[44m GET     [0m /swagger/swagger-ui.css
+2020/04/13 22:42:12.352 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|     6.4965ms|   match|[44m GET     [0m /swagger/swagger-ui-bundle.js
+2020/04/13 22:42:12.353 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|      6.498ms|   match|[44m GET     [0m /swagger/swagger-ui-standalone-preset.js
+2020/04/13 22:42:12.533 [D] [server.go:2802]  |      127.0.0.1|[42m 200 [0m|      492.3µs|   match|[44m GET     [0m /swagger/swagger.json
+2020/04/13 22:42:18.630 [D] [server.go:2802]  |      127.0.0.1|[42m 200 [0m|     69.005ms|   match|[44m GET     [0m /v1/draw/   r:/v1/draw/
+2020/04/13 23:05:10.863 [I] [asm_amd64.s:1357]  http server Running on http://127.0.0.1:9001
+2020/04/13 23:05:16.161 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|          2ms|   match|[44m GET     [0m /swagger/
+2020/04/13 23:05:16.207 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|           0s|   match|[44m GET     [0m /swagger/swagger-ui.css
+2020/04/13 23:05:16.214 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|     6.4712ms|   match|[44m GET     [0m /swagger/swagger-ui-bundle.js
+2020/04/13 23:05:16.214 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|     6.5041ms|   match|[44m GET     [0m /swagger/swagger-ui-standalone-preset.js
+2020/04/13 23:05:16.395 [D] [server.go:2802]  |      127.0.0.1|[42m 200 [0m|           0s|   match|[44m GET     [0m /swagger/swagger.json
+2020/04/13 23:05:28.607 [D] [server.go:2802]  |      127.0.0.1|[42m 200 [0m|    76.4901ms|   match|[44m GET     [0m /v1/draw/   r:/v1/draw/
+2020/04/13 23:07:01.303 [I] [asm_amd64.s:1357]  http server Running on http://127.0.0.1:9001
+2020/04/13 23:15:44.690 [I] [asm_amd64.s:1357]  http server Running on http://127.0.0.1:9001
+2020/04/13 23:15:49.981 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|      503.8µs|   match|[44m GET     [0m /swagger/
+2020/04/13 23:15:50.042 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|      815.4µs|   match|[44m GET     [0m /swagger/swagger-ui.css
+2020/04/13 23:15:50.052 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|      9.947ms|   match|[44m GET     [0m /swagger/swagger-ui-bundle.js
+2020/04/13 23:15:50.054 [D] [server.go:2802]  |      127.0.0.1|[47m 304 [0m|    10.5015ms|   match|[44m GET     [0m /swagger/swagger-ui-standalone-preset.js
+2020/04/13 23:15:50.259 [D] [server.go:2802]  |      127.0.0.1|[42m 200 [0m|           0s|   match|[44m GET     [0m /swagger/swagger.json
+2020/04/13 23:15:56.000 [D] [server.go:2802]  |      127.0.0.1|[42m 200 [0m|   110.5135ms|   match|[44m GET     [0m /v1/draw/   r:/v1/draw/
+2020/04/13 23:56:57.945 [I] [asm_amd64.s:1357]  http server Running on http://127.0.0.1:9001
