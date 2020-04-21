@@ -15,7 +15,107 @@
     },
     "basePath": "/v1",
     "paths": {
-        "/draw/": {
+        "/draw/Edit": {
+            "put": {
+                "tags": [
+                    "draw"
+                ],
+                "description": "update the Draw",
+                "operationId": "DrawController.Put",
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "id",
+                        "description": "The id you want to update",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "title",
+                        "description": "body for Draw content",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "intro",
+                        "description": "body for Draw content",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "type",
+                        "description": "body for Draw content",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "times",
+                        "description": "body for Draw content",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "showResult",
+                        "description": "body for Draw content",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "showRate",
+                        "description": "body for Draw content",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "showType",
+                        "description": "body for Draw content",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "condition",
+                        "description": "body for Draw content",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "joinNum",
+                        "description": "body for Draw content",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Draw"
+                        }
+                    },
+                    "403": {
+                        "description": ":id is not int"
+                    }
+                }
+            }
+        },
+        "/draw/GetAll": {
             "get": {
                 "tags": [
                     "draw"
@@ -74,7 +174,43 @@
                         "description": ""
                     }
                 }
-            },
+            }
+        },
+        "/draw/Login": {
+            "post": {
+                "tags": [
+                    "draw"
+                ],
+                "description": "delete the Draw",
+                "operationId": "DrawController.Login",
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "phone",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "password",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string}"
+                    },
+                    "403": {
+                        "description": "id is empty"
+                    }
+                }
+            }
+        },
+        "/draw/SaveConfig": {
             "post": {
                 "tags": [
                     "draw"
@@ -82,6 +218,13 @@
                 "description": "create Draw",
                 "operationId": "DrawController.Create",
                 "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "id",
+                        "description": "body for Draw content",
+                        "type": "integer",
+                        "format": "int64"
+                    },
                     {
                         "in": "formData",
                         "name": "title",
@@ -93,12 +236,14 @@
                         "in": "formData",
                         "name": "intro",
                         "description": "body for Draw content",
+                        "required": true,
                         "type": "string"
                     },
                     {
                         "in": "formData",
                         "name": "type",
                         "description": "body for Draw content",
+                        "required": true,
                         "type": "integer",
                         "format": "int64"
                     },
@@ -106,6 +251,7 @@
                         "in": "formData",
                         "name": "times",
                         "description": "body for Draw content",
+                        "required": true,
                         "type": "integer",
                         "format": "int64"
                     },
@@ -113,6 +259,7 @@
                         "in": "formData",
                         "name": "showResult",
                         "description": "body for Draw content",
+                        "required": true,
                         "type": "integer",
                         "format": "int64"
                     },
@@ -120,6 +267,7 @@
                         "in": "formData",
                         "name": "showRate",
                         "description": "body for Draw content",
+                        "required": true,
                         "type": "integer",
                         "format": "int64"
                     },
@@ -127,6 +275,7 @@
                         "in": "formData",
                         "name": "showType",
                         "description": "body for Draw content",
+                        "required": true,
                         "type": "integer",
                         "format": "int64"
                     },
@@ -134,6 +283,7 @@
                         "in": "formData",
                         "name": "condition",
                         "description": "body for Draw content",
+                        "required": true,
                         "type": "integer",
                         "format": "int64"
                     },
@@ -141,6 +291,7 @@
                         "in": "formData",
                         "name": "joinNum",
                         "description": "body for Draw content",
+                        "required": true,
                         "type": "integer",
                         "format": "int64"
                     },
@@ -170,7 +321,7 @@
                 }
             }
         },
-        "/draw/{id}": {
+        "/draw/getInfo": {
             "get": {
                 "tags": [
                     "draw"
@@ -179,7 +330,14 @@
                 "operationId": "DrawController.GetOne",
                 "parameters": [
                     {
-                        "in": "path",
+                        "in": "header",
+                        "name": "token",
+                        "description": "The key for staticblock",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
                         "name": "id",
                         "description": "The key for staticblock",
                         "required": true,
@@ -198,44 +356,9 @@
                         "description": ":id is empty"
                     }
                 }
-            },
-            "put": {
-                "tags": [
-                    "draw"
-                ],
-                "description": "update the Draw",
-                "operationId": "DrawController.Put",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "id",
-                        "description": "The id you want to update",
-                        "required": true,
-                        "type": "integer",
-                        "format": "int64"
-                    },
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "body for Draw content",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.Draw"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/models.Draw"
-                        }
-                    },
-                    "403": {
-                        "description": ":id is not int"
-                    }
-                }
-            },
+            }
+        },
+        "/draw/{id}": {
             "delete": {
                 "tags": [
                     "draw"
@@ -302,6 +425,21 @@
                     "type": "integer",
                     "format": "int64"
                 },
+                "playConfigs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.DrawPlay"
+                    }
+                },
+                "previewUrl": {
+                    "type": "string"
+                },
+                "prizeConfigs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.DrawPrize"
+                    }
+                },
                 "showRate": {
                     "type": "integer",
                     "format": "int64"
@@ -338,6 +476,90 @@
                     "format": "int64"
                 },
                 "uin": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.DrawPlay": {
+            "title": "DrawPlay",
+            "type": "object",
+            "properties": {
+                "deleted": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "drawId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "endTime": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "play": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "startTime": {
+                    "type": "integer",
+                    "format": "int64"
+                }
+            }
+        },
+        "models.DrawPrize": {
+            "title": "DrawPrize",
+            "type": "object",
+            "properties": {
+                "createTime": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "deleted": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "drawId": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "level": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "num": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "prizeAlias": {
+                    "type": "string"
+                },
+                "sum": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "type": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "typeInfo": {
+                    "type": "string"
+                },
+                "winningRate": {
                     "type": "integer",
                     "format": "int64"
                 }

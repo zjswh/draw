@@ -19,7 +19,7 @@ func init() {
 
 	orm.RegisterDataBase("default", "mysql", dataSource)
 
-	orm.RegisterModel(new(Draw),new(DrawPrize), new(DrawPlay))
+	orm.RegisterModel(new(Draw), new(DrawPrize), new(DrawPlay), new(User))
 	if beego.BConfig.RunMode == "dev" {
 		orm.Debug = true
 	}

@@ -1,9 +1,6 @@
 package models
 
-import (
-	"draw/lib"
-	"github.com/astaxie/beego/orm"
-)
+import "github.com/astaxie/beego/orm"
 
 type DrawPrize struct {
 	Id          int64  `json:"id,omitempty" orm:"auto"`
@@ -26,16 +23,17 @@ func (d *DrawPrize) TableName() string {
 	return "program_activity_draw_prize"
 }
 
-func AddDrawPrize(prize []DrawPrize, id int64) (num int64, err error) {
-	o := orm.NewOrm()
-	o.Using("default")
-	for k, _ := range prize {
-		prize[k].DrawId = id
-		prize[k].CreateTime = lib.GetCurrentTimeStamp()
-		prize[k].UpdateTime = lib.GetCurrentTimeStamp()
-	}
-	length := len(prize)
-	num, err = o.InsertMulti(length, prize)
+
+func (m *DrawPrize) Update(fields ...string) (err error) {
+	_, err = orm.NewOrm().Update(m, fields...)
 	return
 }
 
+func (m *DrawPrize) Read(fields ...string) (err error) {
+	err = orm.NewOrm().Read(m, fields...)
+	return
+}
+
+func(m *DrawPrize) Query() orm.QuerySeter {
+	return orm.NewOrm().QueryTable(m)
+}
