@@ -20,6 +20,11 @@ func init() {
 				&controllers.DrawController{},
 			),
 		),
+		beego.NSNamespace("/drawResult",
+			beego.NSInclude(
+				&controllers.DrawResultController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }

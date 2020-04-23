@@ -17,7 +17,8 @@ const CRYPT_KEY = "ac8d51aj"
 // URLMapping ...
 func (c *DrawController) URLMapping() {
 	c.Mapping("SaveConfig", c.SaveConfig)
-	c.Mapping("GetInfo", c.GetInfo)
+	c.Mapping("GetDrawContent", c.GetDrawContent)
+	c.Mapping("GetDrawInfo", c.GetDrawInfo)
 	c.Mapping("GetAll", c.GetAll)
 	c.Mapping("Put", c.Put)
 	c.Mapping("Login", c.Login)
@@ -27,6 +28,7 @@ func (c *DrawController) URLMapping() {
 // Post ...
 // @Title Create
 // @Description create Draw
+// @Param	token					header 		string	true		"登录凭证"
 // @Param	id						formData 	int64	false		"body for Draw content"
 // @Param	title					formData 	string	true		"body for Draw content"
 // @Param	intro					formData 	string	true		"body for Draw content"
@@ -43,8 +45,10 @@ func (c *DrawController) URLMapping() {
 // @Failure 403 body is empty
 // @router /SaveConfig [post]
 func (c *DrawController) SaveConfig() {
+	userInfo := c.CheckLogin()
 	var draw models.Draw
 	id, _ := c.GetInt64("id",0)
+	draw.Uin = userInfo.Uin
 	draw.Type, _ = c.GetInt("type",1)
 	draw.ShowResult, _ = c.GetInt("showResult",0)
 	draw.ShowRate, _ = c.GetInt("showRate",0)
@@ -102,12 +106,11 @@ func (c *DrawController) SaveConfig() {
 // @Param	id		query 	int64	true		"The key for staticblock"
 // @Success 200 {object} models.Draw
 // @Failure 403 :id is empty
-// @router /getInfo [get]
-func (c *DrawController) GetInfo() {
-	c.GetUserInfo()
-	fmt.Println(c.Data["userInfo"])
+// @router /GetDrawContent [get]
+func (c *DrawController) GetDrawContent() {
+	userInfo := c.CheckLogin()
 	id, _ := c.GetInt64("id")
-	draw := models.Draw{Id: id}
+	draw := models.Draw{Id: id, Uin:userInfo.Uin}
 	if err :=draw.Read(); err != nil{
 		c.FormatJson("",9,"该抽奖不存在")
 	}
@@ -128,17 +131,18 @@ func (c *DrawController) GetInfo() {
 // GetAll ...
 // @Title GetAll
 // @Description get Draw
-// @Param	num		query	int64	false	"每页显示数"
-// @Param	page	query	int64	false	"页数"
-// @Param	title	query	string	false	"标题"
-// @Param	status	query	int64	false	"状态"
-// @Param	sTime	query	string	false	"起始时间"
-// @Param	eTime	query	string	false	"结束时间"
+// @Param	token		header	string	true	"登录凭证"
+// @Param	num			query	int64	false	"每页显示数"
+// @Param	page		query	int64	false	"页数"
+// @Param	title		query	string	false	"标题"
+// @Param	status		query	int64	false	"状态"
+// @Param	sTime		query	string	false	"起始时间"
+// @Param	eTime		query	string	false	"结束时间"
 // @Success 200 {object} models.Draw
 // @Failure 403
 // @router /GetAll [get]
 func (c *DrawController) GetAll() {
-
+	userInfo := c.CheckLogin()
 	page, _ := c.GetInt64("page", 1)
 	num, _ := c.GetInt64("num", 10)
 	status, _ := c.GetInt64("status", -1)
@@ -150,7 +154,7 @@ func (c *DrawController) GetAll() {
 
 	offset := (page - 1) * num
 
-	query := draw.Query()
+	query := draw.Query().Filter("uin", userInfo.Uin)
 	if title != "" {
 		query = query.Filter("title__contains", title)
 	}
@@ -251,12 +255,61 @@ func (c *DrawController) Login(){
 	if user.Id == 0 {
 		c.FormatJson("", 2, "账号或密码错误")
 	}
+
+	//生成tokenkey   $token = strtoupper(md5(uniqid($time . $userInfo['uin'])));
+	tokenKey := lib.UniqueId()
+	expiredTime := 86400
+	info, _ := json.Marshal(user)
+	_, err = lib.RedisSetString(tokenKey,string(info), expiredTime)
+	if err != nil {
+		c.FormatJson("",3,err.Error())
+	}
 	var claim lib.Claims
-	claim.Id = user.Id
-	claim.Uin = user.Uin
-	claim.Name = user.Name
+	claim.Token = tokenKey
+	claim.ExpiresAt = int64(expiredTime)
 	token, _ := lib.CreateToken(claim)
 	c.FormatJson(token, 0, "")
+}
+
+// getDrawInfo ...
+// @Title getDrawInfo
+// @Description get Draw by id
+// @Param	id		query 	int64	true		"The key for staticblock"
+// @Success 200 {object} models.Draw
+// @Failure 403 id is empty
+// @router /GetDrawInfo [get]
+func (c *DrawController) GetDrawInfo(){
+	id, _ := c.GetInt64("id")
+	key := "draw_info:" + string(id)
+	info, err := lib.RedisGetString(key)
+	if err != nil {
+		c.FormatJson("",3,err.Error())
+	}
+	var draw models.Draw
+	if info != "" {
+		json.Unmarshal([]byte(info), &draw)
+		c.FormatJson(draw, 0, "")
+	}
+
+	draw.Id = id
+	if err :=draw.Read(); err != nil{
+		c.FormatJson("",9,"该抽奖不存在")
+	}
+	//获取场次
+	var playConfigs []*models.DrawPlay
+	var drawPlay models.DrawPlay
+	drawPlay.Query().Filter("drawId", id).Filter("deleted",0).All(&playConfigs)
+	draw.PlayConfigs = playConfigs
+
+	//获取奖项列表
+	var prizeConfigs []*models.DrawPrize
+	var drawPrize models.DrawPrize
+	drawPrize.Query().Filter("drawId", id).Filter("deleted",0).All(&prizeConfigs)
+	draw.PrizeConfigs = prizeConfigs
+	infoString, _ := json.Marshal(draw)
+
+	lib.RedisSetString(key,string(infoString),3600)
+	c.FormatJson(draw, 0, "")
 }
 
 

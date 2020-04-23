@@ -36,6 +36,24 @@ func init() {
 
     beego.GlobalControllerRouter["draw/controllers:DrawController"] = append(beego.GlobalControllerRouter["draw/controllers:DrawController"],
         beego.ControllerComments{
+            Method: "GetDrawContent",
+            Router: `/GetDrawContent`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["draw/controllers:DrawController"] = append(beego.GlobalControllerRouter["draw/controllers:DrawController"],
+        beego.ControllerComments{
+            Method: "GetDrawInfo",
+            Router: `/GetDrawInfo`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["draw/controllers:DrawController"] = append(beego.GlobalControllerRouter["draw/controllers:DrawController"],
+        beego.ControllerComments{
             Method: "Login",
             Router: `/Login`,
             AllowHTTPMethods: []string{"POST"},
@@ -52,11 +70,38 @@ func init() {
             Filters: nil,
             Params: nil})
 
-    beego.GlobalControllerRouter["draw/controllers:DrawController"] = append(beego.GlobalControllerRouter["draw/controllers:DrawController"],
+    beego.GlobalControllerRouter["draw/controllers:DrawResultController"] = append(beego.GlobalControllerRouter["draw/controllers:DrawResultController"],
+        beego.ControllerComments{
+            Method: "ExportDrawInfo",
+            Router: `/ExportDrawInfo`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["draw/controllers:DrawResultController"] = append(beego.GlobalControllerRouter["draw/controllers:DrawResultController"],
         beego.ControllerComments{
             Method: "GetInfo",
-            Router: `/getInfo`,
+            Router: `/GetInfo`,
             AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["draw/controllers:DrawResultController"] = append(beego.GlobalControllerRouter["draw/controllers:DrawResultController"],
+        beego.ControllerComments{
+            Method: "PersonResult",
+            Router: `/PersonResult`,
+            AllowHTTPMethods: []string{"get"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["draw/controllers:DrawResultController"] = append(beego.GlobalControllerRouter["draw/controllers:DrawResultController"],
+        beego.ControllerComments{
+            Method: "WriteOff",
+            Router: `/WriteOff`,
+            AllowHTTPMethods: []string{"post"},
             MethodParams: param.Make(),
             Filters: nil,
             Params: nil})

@@ -107,6 +107,11 @@ paths:
       description: get Draw
       operationId: DrawController.GetAll
       parameters:
+      - in: header
+        name: token
+        description: 登录凭证
+        required: true
+        type: string
       - in: query
         name: num
         description: 每页显示数
@@ -141,6 +146,51 @@ paths:
             $ref: '#/definitions/models.Draw'
         "403":
           description: ""
+  /draw/GetDrawContent:
+    get:
+      tags:
+      - draw
+      description: get Draw by id
+      operationId: DrawController.GetOne
+      parameters:
+      - in: header
+        name: token
+        description: The key for staticblock
+        required: true
+        type: string
+      - in: query
+        name: id
+        description: The key for staticblock
+        required: true
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Draw'
+        "403":
+          description: :id is empty
+  /draw/GetDrawInfo:
+    get:
+      tags:
+      - draw
+      description: get Draw by id
+      operationId: DrawController.getDrawInfo
+      parameters:
+      - in: query
+        name: id
+        description: The key for staticblock
+        required: true
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Draw'
+        "403":
+          description: id is empty
   /draw/Login:
     post:
       tags:
@@ -171,6 +221,11 @@ paths:
       description: create Draw
       operationId: DrawController.Create
       parameters:
+      - in: header
+        name: token
+        description: 登录凭证
+        required: true
+        type: string
       - in: formData
         name: id
         description: body for Draw content
@@ -243,12 +298,16 @@ paths:
             $ref: '#/definitions/models.Draw'
         "403":
           description: body is empty
-  /draw/getInfo:
+  /drawResult/ExportDrawInfo:
     get:
       tags:
-      - draw
+      - drawResult
+  /drawResult/GetInfo:
+    get:
+      tags:
+      - drawResult
       description: get Draw by id
-      operationId: DrawController.GetOne
+      operationId: DrawResultController.GetInfo
       parameters:
       - in: header
         name: token
@@ -261,13 +320,83 @@ paths:
         required: true
         type: integer
         format: int64
+      - in: query
+        name: userNick
+        description: The key for staticblock
+        type: string
+      - in: query
+        name: prizeName
+        description: The key for staticblock
+        type: string
+      - in: query
+        name: phone
+        description: The key for staticblock
+        type: string
+      - in: query
+        name: isPrize
+        description: The key for staticblock
+        type: integer
+        format: int64
+      - in: query
+        name: sTime
+        description: The key for staticblock
+        type: integer
+        format: int64
+      - in: query
+        name: eTime
+        description: The key for staticblock
+        type: integer
+        format: int64
       responses:
-        "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/models.Draw'
         "403":
-          description: :id is empty
+          description: id is empty
+  /drawResult/PersonResult:
+    get:
+      tags:
+      - drawResult
+      description: get Draw by id
+      operationId: DrawResultController.personResult
+      parameters:
+      - in: query
+        name: userId
+        description: The key for staticblock
+        required: true
+        type: integer
+        format: int64
+      - in: query
+        name: id
+        description: The key for staticblock
+        required: true
+        type: integer
+        format: int64
+      responses:
+        "403":
+          description: id is empty
+  /drawResult/WriteOff:
+    post:
+      tags:
+      - drawResult
+      description: WriteOff
+      operationId: DrawResultController.WriteOff
+      parameters:
+      - in: header
+        name: token
+        description: The key for staticblock
+        required: true
+        type: string
+      - in: formData
+        name: recordId
+        description: The key for staticblock
+        required: true
+        type: integer
+        format: int64
+      - in: formData
+        name: userNick
+        description: The key for staticblock
+        type: string
+      responses:
+        "403":
+          description: id is empty
 definitions:
   models.Draw:
     title: Draw
@@ -401,5 +530,8 @@ definitions:
         format: int64
 tags:
 - name: draw
+  description: |
+    DrawController operations for Draw
+- name: drawResult
   description: |
     DrawController operations for Draw

@@ -6,9 +6,7 @@ import (
 )
 
 type Claims struct {
-	Id int64 `json:"id,omitempty"`
-	Uin int64 `json:"uin,omitempty"`
-	Name string `json:"name,omitempty"`
+	Token string `json:"token"`
 	jwt.StandardClaims
 }
 

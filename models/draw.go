@@ -6,13 +6,14 @@ import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
 	"reflect"
+	"strconv"
 	"strings"
 )
 
 type Draw struct {
 	Id         int64 `json:"id,omitempty" orm:"auto"`
 	Aid        int `json:"aid,omitempty"`
-	Uin        int `json:"uin"`
+	Uin        int64 `json:"uin"`
 	Title      string `json:"title,omitempty" orm:"size(128)"`
 	Type       int `json:"type,omitempty"`
 	Times      int `json:"times,omitempty"`
@@ -253,7 +254,20 @@ func UpdateDrawById(m *Draw) ( err error){
 func (m *Draw) Update() (err error) {
 	localTime := lib.GetCurrentTimeStamp()
 	o := orm.NewOrm()
+	var list []int64
+	list = append(list, 195,196)
 	o.Using("default")
+	//var sql string
+	//sql = " UPDATE program_activity_draw_prize SET deleted=1 WHERE drawId=120 AND id NOT IN ( "
+	//for k, v := range list {
+	//	id := strconv.FormatInt(v, 10)
+	//	if k + 1 == len(list){
+	//		sql += id + " )"
+	//	}else{
+	//		sql += id + ","
+	//	}
+	//}
+
 	o.Begin()
 	err = o.Read(&Draw{Id:m.Id})
 	if err != nil {
@@ -266,23 +280,33 @@ func (m *Draw) Update() (err error) {
 		return
 	}
 
+	var prizeIds  string
 	prize := m.PrizeConfigs
-	for _, v := range prize {
+	for k, v := range prize {
 		v.UpdateTime = localTime
 		if v.Id == 0 { //新增
 			v.DrawId = m.Id
 			v.CreateTime = localTime
-			_, err = o.Insert(v)
+			v.Id, err = o.Insert(v)
 		}else {  //修改
 			_, err = o.Update(v,"prizeAlias","level","name","sum","typeInfo","icon","winningRate")
 		}
-
+		id := strconv.FormatInt(v.Id, 10)
+		if k + 1 == len(prize) {
+			prizeIds += id
+		}else{
+			prizeIds += id + " ,"
+		}
 		if err != nil {
 			o.Rollback()
 			return
 		}
 	}
-
+	if prizeIds != "" {
+		fmt.Println(prizeIds)
+		o.Raw(" UPDATE program_activity_draw_prize SET deleted=1 WHERE id NOT IN ( "+prizeIds+" ) ").Exec()
+	}
+	var playIds  string
 	play := m.PlayConfigs
 	for k, v := range play {
 		if v.Id == 0 { //新增
@@ -292,11 +316,19 @@ func (m *Draw) Update() (err error) {
 		}else {  //修改
 			_, err = o.Update(v,"startTime","endTime")
 		}
+		id := strconv.FormatInt(v.Id, 10)
+		if k + 1 == len(prize) {
+			playIds += id
+		}else{
+			playIds += id + " ,"
+		}
 		if err != nil {
 			o.Rollback()
 			return
 		}
-
+	}
+	if playIds != "" {
+		o.Raw(" UPDATE program_activity_draw_play SET deleted=1 WHERE id NOT IN ( "+playIds+" ) ").Exec()
 	}
 	o.Commit()
 	return
