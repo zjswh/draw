@@ -15,5 +15,5 @@ func main() {
 		logs.SetLogger("file",`{"filename":"logs/test.log"}`)
 	}
 	beego.ErrorController(&controllers.ErrorController{})
-	beego.Run("127.0.0.1:9001")
+	beego.Run(":9001")
 }
